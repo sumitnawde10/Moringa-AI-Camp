@@ -1,70 +1,153 @@
-# Getting Started with Create React App
+# Moringa Camp Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend for the Moringa Camp patient registration and eye assessment app.
+
+It is built with:
+- React
+- React Router
+- Material UI
+
+## Project Folder
+
+The Git repository is inside the `frontend` folder.
+
+If your friend downloads or clones this project, all frontend commands should be run from:
+
+```powershell
+cd frontend
+```
+
+## Requirements
+
+Before starting, make sure these are installed on the local system:
+
+- Node.js
+- npm
+- Git
+
+Recommended:
+- Node.js 18 or later
+
+To check installed versions:
+
+```powershell
+node -v
+npm -v
+git --version
+```
+
+## How To Get This Project On A Local System
+
+### 1. Clone the repository
+
+Replace the URL below with your actual GitHub repository link:
+
+```powershell
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+```
+
+### 2. Go into the frontend folder
+
+```powershell
+cd YOUR_REPO_NAME/frontend
+```
+
+### 3. Install dependencies
+
+```powershell
+npm install
+```
+
+### 4. Start the development server
+
+```powershell
+npm start
+```
+
+After that, open:
+
+```text
+http://localhost:3000
+```
 
 ## Available Scripts
 
-In the project directory, you can run:
+### Run in development
 
-### `npm start`
+```powershell
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Starts the app in development mode.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Create production build
 
-### `npm test`
+```powershell
+npm run build
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Creates an optimized production build inside the `build` folder.
 
-### `npm run build`
+### Run tests
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```powershell
+npm test
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Starts the test runner.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## First-Time Setup Summary
 
-### `npm run eject`
+If someone is setting it up for the first time, these are the only commands they need:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```powershell
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+cd YOUR_REPO_NAME/frontend
+npm install
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Common Issues
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### `node` or `npm` is not recognized
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Node.js is not installed, or it is not added to system `PATH`.
 
-## Learn More
+Install Node.js from the official website, then reopen the terminal.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### `npm install` fails
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Try:
 
-### Code Splitting
+```powershell
+npm cache clean --force
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Port 3000 is already in use
 
-### Analyzing the Bundle Size
+If another app is using port `3000`, React may ask to run on another port. You can allow that and continue.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Notes
 
-### Making a Progressive Web App
+- Do not commit `node_modules`
+- Do not commit `.env` files with secrets
+- The `.gitignore` file already excludes common local and generated files
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Current Main Features
 
-### Advanced Configuration
+- Patient registration flow
+- Health assessment flow
+- Camp selection
+- Eye questionnaire for child and adult patients
+- Summary page for submitted answers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Support
 
-### Deployment
+If your friend is setting this up and something does not work, ask them to send:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- the command they ran
+- the full terminal error
+- their Node.js version from `node -v`
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+That usually makes debugging much faster.
