@@ -7,6 +7,15 @@ It is built with:
 - React Router
 - Material UI
 
+Main packages used in this project include:
+- `react`
+- `react-dom`
+- `react-router-dom`
+- `@mui/material`
+- `@mui/icons-material`
+- `@emotion/react`
+- `@emotion/styled`
+
 ## Project Folder
 
 The Git repository is inside the `frontend` folder.
@@ -58,6 +67,15 @@ cd YOUR_REPO_NAME/frontend
 npm install
 ```
 
+This command installs all required packages from `package.json`, including:
+- React
+- React Router
+- Material UI
+- Material UI Icons
+- Emotion
+
+You do not need to install Material UI separately if you run `npm install`.
+
 ### 4. Start the development server
 
 ```powershell
@@ -79,6 +97,17 @@ npm start
 ```
 
 Starts the app in development mode.
+
+## If Someone Wants To Install Packages Manually
+
+Normally this is not needed, because `npm install` installs everything automatically.
+
+If someone wants to install the main frontend packages manually, these are the important ones:
+
+```powershell
+npm install react react-dom react-router-dom
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
+```
 
 ### Create production build
 
