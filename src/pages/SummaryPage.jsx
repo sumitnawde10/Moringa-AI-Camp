@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Alert, Box, Button, Container, Divider, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FormContext } from "../context/FormContext";
@@ -21,10 +21,17 @@ const SummaryPage = () => {
   const { formData, setFormData } = useContext(FormContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
   const step1 = formData?.step1 || {};
   const step2 = formData?.step2 || {};
   const selectedCamp = formData?.selectedCamp || "";
   const eyeForm = formData?.eyeForm || {};
+  const dentalForm = formData?.dentalForm || {};
+  const malnutritionForm = formData?.malnutritionForm || {};
+  const diabetesForm = formData?.diabetesForm || {};
 
   const allCampAnswers = eyeForm.answers || {};
   const emergencyQuestions =
@@ -87,6 +94,74 @@ const SummaryPage = () => {
     { label: "Other Details", value: eyeForm.otherText },
   ];
 
+  const dentalItems = [
+    {
+      label: "Dental Complaints",
+      value: dentalForm.complaints?.length
+        ? dentalForm.complaints.join(", ")
+        : "",
+    },
+    { label: "Other Complaint Details", value: dentalForm.otherComplaint },
+    {
+      label: "Problem Duration",
+      value: dentalForm.complaintDuration,
+    },
+    {
+      label: "Brushing Frequency",
+      value: dentalForm.brushingFrequency,
+    },
+    { label: "Brushing Tool", value: dentalForm.brushingTool },
+    { label: "Do You Floss", value: dentalForm.flossing },
+    {
+      label: "Mouth Rinsing After Meals",
+      value: dentalForm.mouthRinsing,
+    },
+    {
+      label: "Tobacco Use",
+      value: dentalForm.tobaccoUse?.length
+        ? dentalForm.tobaccoUse.join(", ")
+        : "",
+    },
+    {
+      label: "Tobacco Use Duration",
+      value: dentalForm.tobaccoDuration
+        ? `${dentalForm.tobaccoDuration} years`
+        : "",
+    },
+    {
+      label: "Tobacco Use Frequency",
+      value: dentalForm.tobaccoFrequency,
+    },
+    {
+      label: "Alcohol Consumption",
+      value: dentalForm.alcoholConsumption,
+    },
+    {
+      label: "Past Dental History",
+      value: dentalForm.pastDentalHistory?.length
+        ? dentalForm.pastDentalHistory.join(", ")
+        : "",
+    },
+    {
+      label: "Problems After Previous Dental Treatment",
+      value: dentalForm.pastTreatmentProblems,
+    },
+  ];
+
+  const malnutritionItems = Object.entries(malnutritionForm.answers || {}).map(
+    ([label, value]) => ({
+      label,
+      value,
+    })
+  );
+
+  const diabetesItems = Object.entries(diabetesForm.answers || {}).map(
+    ([label, value]) => ({
+      label,
+      value,
+    })
+  );
+
   const sectionBox = {
     p: 2.5,
     borderRadius: 3,
@@ -141,10 +216,69 @@ const SummaryPage = () => {
     ));
   };
 
+  const renderDentalScreeningAnswers = () => {
+    const entries = Object.entries(dentalForm.screeningAnswers || {});
+    const filteredEntries = dentalForm.screeningUseDuration
+      ? [
+          ...entries,
+          [
+            "Duration of tobacco / betel nut use (years)",
+            `${dentalForm.screeningUseDuration} years`,
+          ],
+        ]
+      : entries;
+
+    if (!filteredEntries.length) {
+      return (
+        <Typography color="text.secondary">
+          No dental screening answers were saved.
+        </Typography>
+      );
+    }
+
+    return filteredEntries.map(([question, answer]) => (
+      <Box key={question} mb={2}>
+        <Typography fontWeight="600">{question}</Typography>
+        <Typography color="text.secondary">Selected answer: {answer}</Typography>
+      </Box>
+    ));
+  };
+
+  const renderDentalComplaintDetails = () => {
+    const entries = Object.entries(dentalForm.complaintDetails || {});
+
+    if (!entries.length) {
+      return (
+        <Typography color="text.secondary">
+          No complaint-specific dental answers were saved.
+        </Typography>
+      );
+    }
+
+    return entries.map(([complaint, answers]) => (
+      <Box key={complaint} mb={2}>
+        <Typography fontWeight="700" mb={1}>
+          {complaint}
+        </Typography>
+        {Object.entries(answers).map(([questionKey, answer]) => (
+          <Typography key={questionKey} color="text.secondary" mb={0.8}>
+            <strong>{questionKey}:</strong>{" "}
+            {Array.isArray(answer) ? answer.join(", ") : answer}
+          </Typography>
+        ))}
+      </Box>
+    ));
+  };
+
   const handleRegisterAnother = () => {
     setFormData({
       step1: {},
       step2: {},
+      selectedCamp: "",
+      eyeForm: {},
+      dentalForm: {},
+      malnutritionForm: {},
+      diabetesForm: {},
     });
     navigate("/");
   };
@@ -228,6 +362,85 @@ const SummaryPage = () => {
               Camp Form Answers
             </Typography>
             <Box sx={sectionBox}>{renderCampAnswers()}</Box>
+          </>
+        )}
+
+        {selectedCamp === "dental" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Dental Camp Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(dentalItems)}</Box>
+
+            <Typography variant="h6" mb={2}>
+              Dental Complaint Details
+            </Typography>
+            <Box sx={sectionBox}>{renderDentalComplaintDetails()}</Box>
+
+            <Typography variant="h6" mb={2}>
+              Oral Cancer / Lesion Screening
+            </Typography>
+            <Box sx={sectionBox}>{renderDentalScreeningAnswers()}</Box>
+          </>
+        )}
+
+        {selectedCamp === "malnutrition" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Malnutrition Camp Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(malnutritionItems)}</Box>
+
+            {malnutritionForm.warningShown && (
+              <>
+                <Typography variant="h6" mb={2}>
+                  Warning Shown In Form
+                </Typography>
+                <Box sx={{ mb: 3 }}>
+                  <Alert severity="warning">
+                    Concerning signs detected. Nutrition specialist follow-up is
+                    recommended.
+                  </Alert>
+                </Box>
+              </>
+            )}
+          </>
+        )}
+
+        {selectedCamp === "diabetes" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Diabetes Camp Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(diabetesItems)}</Box>
+
+            {diabetesForm.warningShown && (
+              <>
+                <Typography variant="h6" mb={2}>
+                  Warning Shown In Form
+                </Typography>
+                <Box sx={{ mb: 3 }}>
+                  <Alert severity="warning">
+                    Complication warning shown. Specialist follow-up is
+                    recommended.
+                  </Alert>
+                </Box>
+              </>
+            )}
+
+            {diabetesForm.criticalAlertShown && (
+              <>
+                <Typography variant="h6" mb={2}>
+                  Critical Alert Shown In Form
+                </Typography>
+                <Box sx={{ mb: 3 }}>
+                  <Alert severity="error">
+                    Critical diabetes concern detected. Immediate doctor review
+                    is recommended.
+                  </Alert>
+                </Box>
+              </>
+            )}
           </>
         )}
 
