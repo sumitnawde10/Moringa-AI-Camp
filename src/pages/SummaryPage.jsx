@@ -32,6 +32,7 @@ const SummaryPage = () => {
   const dentalForm = formData?.dentalForm || {};
   const malnutritionForm = formData?.malnutritionForm || {};
   const diabetesForm = formData?.diabetesForm || {};
+  const heartForm = formData?.heartForm || {};
 
   const allCampAnswers = eyeForm.answers || {};
   const emergencyQuestions =
@@ -162,6 +163,31 @@ const SummaryPage = () => {
     })
   );
 
+  const heartItems = [
+    ...Object.entries(heartForm.answers || {}).map(([label, value]) => ({
+      label,
+      value,
+    })),
+    {
+      label: "Which medications",
+      value: heartForm.medications,
+    },
+    {
+      label: "Which procedure",
+      value: heartForm.procedureDetails,
+    },
+    {
+      label: "Tobacco Duration",
+      value: heartForm.tobaccoDuration
+        ? `${heartForm.tobaccoDuration} years`
+        : "",
+    },
+    {
+      label: "When was your last BP or sugar test",
+      value: heartForm.lastTest,
+    },
+  ];
+
   const sectionBox = {
     p: 2.5,
     borderRadius: 3,
@@ -279,6 +305,7 @@ const SummaryPage = () => {
       dentalForm: {},
       malnutritionForm: {},
       diabetesForm: {},
+      heartForm: {},
     });
     navigate("/");
   };
@@ -436,6 +463,29 @@ const SummaryPage = () => {
                 <Box sx={{ mb: 3 }}>
                   <Alert severity="error">
                     Critical diabetes concern detected. Immediate doctor review
+                    is recommended.
+                  </Alert>
+                </Box>
+              </>
+            )}
+          </>
+        )}
+
+        {selectedCamp === "heart" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Heart Camp Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(heartItems)}</Box>
+
+            {heartForm.highRiskShown && (
+              <>
+                <Typography variant="h6" mb={2}>
+                  High Risk Alert Shown In Form
+                </Typography>
+                <Box sx={{ mb: 3 }}>
+                  <Alert severity="error">
+                    High-risk heart symptoms were reported. Urgent doctor review
                     is recommended.
                   </Alert>
                 </Box>

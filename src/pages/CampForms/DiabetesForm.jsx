@@ -141,8 +141,8 @@ const choiceCardSx = (selected) => ({
   px: 1.5,
   borderRadius: 2,
   border: selected ? `2px solid ${moringaGreen}` : "1px solid #dcdcdc",
-  backgroundColor: "#fff",
-  color: "#1f2937",
+  backgroundColor: selected ? moringaGreen : "#fff",
+  color: selected ? "#fff" : "#1f2937",
   fontWeight: "500",
   fontSize: "0.95rem",
   justifyContent: "center",
@@ -150,7 +150,7 @@ const choiceCardSx = (selected) => ({
   minHeight: 48,
   "&:hover": {
     borderColor: moringaGreen,
-    backgroundColor: "#f1f8f4",
+    backgroundColor: selected ? moringaGreenDark : "#f1f8f4",
   },
 });
 
@@ -442,7 +442,7 @@ const DiabetesForm = () => {
               }}
               onClick={handleSubmit}
             >
-              Submit
+              Submit Assessment
             </Button>
           </Grid>
         </Grid>

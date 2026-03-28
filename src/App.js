@@ -6,6 +6,7 @@ import EyeForm from "./pages/CampForms/EyeForm";
 import DentalForm from "./pages/CampForms/DentalForm";
 import MalnutritionForm from "./pages/CampForms/MalnutritionForm";
 import DiabetesForm from "./pages/CampForms/DiabetesForm";
+import HeartForm from "./pages/CampForms/HeartForm";
 import SummaryPage from "./pages/SummaryPage";
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/camp/dental" element={<DentalForm />} />
         <Route path="/camp/malnutrition" element={<MalnutritionForm />} />
         <Route path="/camp/diabetes" element={<DiabetesForm />} />
+        <Route path="/camp/heart" element={<HeartForm />} />
         <Route path="/summary" element={<SummaryPage />} />
       </Routes>
     </BrowserRouter>
