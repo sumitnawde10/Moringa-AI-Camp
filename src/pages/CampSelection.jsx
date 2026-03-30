@@ -17,15 +17,15 @@ import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import OpacityIcon from "@mui/icons-material/Opacity";
 
 const camps = [
-  { name: "Eye", color: "linear-gradient(135deg, #a855f7, #9333ea)", icon: <VisibilityIcon fontSize="large" /> },
-  { name: "Dental", color: "linear-gradient(135deg, #14b8a6, #0d9488)", icon: <MedicalServicesIcon fontSize="large" /> },
-  { name: "Malnutrition", color: "linear-gradient(135deg, #f97316, #ea580c)", icon: <RestaurantIcon fontSize="large" /> },
-  { name: "Diabetes", color: "linear-gradient(135deg, #3b82f6, #2563eb)", icon: <OpacityIcon fontSize="large" /> },
-  { name: "Heart", color: "linear-gradient(135deg, #ef4444, #dc2626)", icon: <FavoriteIcon fontSize="large" /> },
-  { name: "Cancer", color: "linear-gradient(135deg, #ec4899, #db2777)", icon: <LocalHospitalIcon fontSize="large" /> },
-  { name: "Tuberculosis", color: "linear-gradient(135deg, #6366f1, #4f46e5)", icon: <MonitorHeartIcon fontSize="large" /> },
-  { name: "Orthopaedic", color: "linear-gradient(135deg, #22c55e, #16a34a)", icon: <LocalHospitalIcon fontSize="large" /> },
-  { name: "Asthma/COPD", color: "linear-gradient(135deg, #06b6d4, #0891b2)", icon: <AirIcon fontSize="large" /> },
+  { name: "Eye", slug: "eye", color: "linear-gradient(135deg, #a855f7, #9333ea)", icon: <VisibilityIcon fontSize="large" /> },
+  { name: "Dental", slug: "dental", color: "linear-gradient(135deg, #14b8a6, #0d9488)", icon: <MedicalServicesIcon fontSize="large" /> },
+  { name: "Malnutrition", slug: "malnutrition", color: "linear-gradient(135deg, #f97316, #ea580c)", icon: <RestaurantIcon fontSize="large" /> },
+  { name: "Diabetes", slug: "diabetes", color: "linear-gradient(135deg, #3b82f6, #2563eb)", icon: <OpacityIcon fontSize="large" /> },
+  { name: "Heart", slug: "heart", color: "linear-gradient(135deg, #ef4444, #dc2626)", icon: <FavoriteIcon fontSize="large" /> },
+  { name: "Cancer", slug: "cancer", color: "linear-gradient(135deg, #ec4899, #db2777)", icon: <LocalHospitalIcon fontSize="large" /> },
+  { name: "Tuberculosis", slug: "tuberculosis", color: "linear-gradient(135deg, #6366f1, #4f46e5)", icon: <MonitorHeartIcon fontSize="large" /> },
+  { name: "Orthopaedic", slug: "orthopaedic", color: "linear-gradient(135deg, #22c55e, #16a34a)", icon: <LocalHospitalIcon fontSize="large" /> },
+  { name: "Asthma/COPD", slug: "asthma-copd", color: "linear-gradient(135deg, #06b6d4, #0891b2)", icon: <AirIcon fontSize="large" /> },
 ];
 
 const CampSelection = () => {
@@ -47,14 +47,14 @@ const CampSelection = () => {
   };
 
   const handleSelect = (camp) => {
-  setSelectedCamp(camp);
+  setSelectedCamp(camp.slug);
 
   setFormData((prev) => ({
     ...prev,
-    selectedCamp: camp.toLowerCase(),
+    selectedCamp: camp.slug,
   }));
 
-  navigate(`/camp/${camp.toLowerCase()}`);
+  navigate(`/camp/${camp.slug}`);
 };
 
   return (
@@ -96,7 +96,7 @@ const CampSelection = () => {
               }}
             >
               <Box
-                onClick={() => handleSelect(camp.name)}
+                onClick={() => handleSelect(camp)}
                 sx={{
                   cursor: "pointer",
                   p: 4,
@@ -113,7 +113,7 @@ const CampSelection = () => {
                   boxShadow: "0 6px 15px rgba(0,0,0,0.15)",
                   transition: "0.3s",
                   border:
-                    selectedCamp === camp.name
+                    selectedCamp === camp.slug
                       ? "2px solid rgba(255,255,255,0.9)"
                       : "2px solid transparent",
 

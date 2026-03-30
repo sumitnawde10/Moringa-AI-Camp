@@ -33,6 +33,10 @@ const SummaryPage = () => {
   const malnutritionForm = formData?.malnutritionForm || {};
   const diabetesForm = formData?.diabetesForm || {};
   const heartForm = formData?.heartForm || {};
+  const asthmaForm = formData?.asthmaForm || {};
+  const tuberculosisForm = formData?.tuberculosisForm || {};
+  const orthopaedicForm = formData?.orthopaedicForm || {};
+  const cancerForm = formData?.cancerForm || {};
 
   const allCampAnswers = eyeForm.answers || {};
   const emergencyQuestions =
@@ -188,6 +192,47 @@ const SummaryPage = () => {
     },
   ];
 
+  const asthmaItems = [
+    { label: "Urgent Check", value: JSON.stringify(asthmaForm.urgentCheck || {}) },
+    { label: "Breathing Problems", value: JSON.stringify(asthmaForm.breathingProblems || {}) },
+    { label: "Past Health", value: JSON.stringify(asthmaForm.pastHealth || {}) },
+    { label: "Habits", value: JSON.stringify(asthmaForm.habits || {}) },
+    { label: "Family", value: JSON.stringify(asthmaForm.family || {}) },
+  ];
+
+  const tuberculosisItems = [
+    { label: "Patient Type", value: tuberculosisForm.patientType },
+    { label: "Screening Data", value: JSON.stringify(tuberculosisForm.data || {}) },
+  ];
+
+  const orthopaedicItems = [
+    { label: "Problems", value: orthopaedicForm.problems?.join(", ") },
+    { label: "Other Problem", value: orthopaedicForm.otherProblem },
+    { label: "Duration", value: orthopaedicForm.duration },
+    { label: "Onset", value: orthopaedicForm.onset },
+    { label: "Severity", value: orthopaedicForm.severity },
+    { label: "Pain Increases On", value: orthopaedicForm.painIncreases?.join(", ") },
+    { label: "Trauma", value: orthopaedicForm.trauma },
+    { label: "Associated Symptoms", value: orthopaedicForm.associatedSymptoms?.join(", ") },
+    { label: "Past History", value: orthopaedicForm.pastHistory?.join(", ") },
+    { label: "Examination", value: JSON.stringify(orthopaedicForm.examination || {}) },
+    { label: "Investigations", value: orthopaedicForm.investigations?.join(", ") },
+    { label: "Treatment", value: orthopaedicForm.treatment },
+    { label: "Advice", value: orthopaedicForm.advice },
+  ];
+
+  const cancerItems = [
+    { label: "General Signs", value: JSON.stringify(cancerForm.generalSigns || {}) },
+    { label: "Unusual Changes", value: JSON.stringify(cancerForm.unusualChanges || {}) },
+    { label: "Digestive Symptoms", value: JSON.stringify(cancerForm.digestiveSymptoms || {}) },
+    { label: "Chest Symptoms", value: JSON.stringify(cancerForm.chestSymptoms || {}) },
+    { label: "Family History", value: cancerForm.familyHistory },
+    { label: "Past History", value: JSON.stringify(cancerForm.pastHistory || {}) },
+    { label: "Lifestyle", value: JSON.stringify(cancerForm.lifestyle || {}) },
+    { label: "Gender", value: cancerForm.gender },
+    { label: "Gender Specific Answers", value: JSON.stringify(cancerForm.genderSpecificAnswers || {}) },
+  ];
+
   const sectionBox = {
     p: 2.5,
     borderRadius: 3,
@@ -306,6 +351,10 @@ const SummaryPage = () => {
       malnutritionForm: {},
       diabetesForm: {},
       heartForm: {},
+      asthmaForm: {},
+      tuberculosisForm: {},
+      orthopaedicForm: {},
+      cancerForm: {},
     });
     navigate("/");
   };
@@ -491,6 +540,68 @@ const SummaryPage = () => {
                 </Box>
               </>
             )}
+          </>
+        )}
+
+        {selectedCamp === "asthma-copd" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Asthma/COPD Camp Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(asthmaItems)}</Box>
+
+            {asthmaForm.urgentWarningShown && (
+              <>
+                <Typography variant="h6" mb={2}>
+                  Urgent Warning Shown In Form
+                </Typography>
+                <Box sx={{ mb: 3 }}>
+                  <Alert severity="error">
+                    Urgent breathing warning was shown in the form.
+                  </Alert>
+                </Box>
+              </>
+            )}
+          </>
+        )}
+
+        {selectedCamp === "tuberculosis" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Tuberculosis Camp Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(tuberculosisItems)}</Box>
+
+            {tuberculosisForm.urgentWarningShown && (
+              <>
+                <Typography variant="h6" mb={2}>
+                  Urgent Warning Shown In Form
+                </Typography>
+                <Box sx={{ mb: 3 }}>
+                  <Alert severity="error">
+                    Urgent tuberculosis warning was shown in the form.
+                  </Alert>
+                </Box>
+              </>
+            )}
+          </>
+        )}
+
+        {selectedCamp === "orthopaedic" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Orthopaedic Camp Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(orthopaedicItems)}</Box>
+          </>
+        )}
+
+        {selectedCamp === "cancer" && (
+          <>
+            <Typography variant="h5" mb={2}>
+              Cancer Screening Summary
+            </Typography>
+            <Box sx={sectionBox}>{renderItems(cancerItems)}</Box>
           </>
         )}
 
